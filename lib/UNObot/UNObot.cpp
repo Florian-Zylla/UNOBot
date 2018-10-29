@@ -7,8 +7,8 @@
 //Library is set by default to version 3.
 //For version 1 or 2 change '#define V 3' to '#define V 1' or '#define V 2'
 #define V 3
-
-
+//newer V3 boards have no servo, for older V3 decomment '#define Servo'
+//#define Servo
 
 #include "Arduino.h"
 #include "UNObot.h"
@@ -17,7 +17,7 @@
 
     //version control
         //view hardware version on the shield
-        int hardware_version=3;
+        #define hardware_version 3
         //later the library with the basic functions will be extended with
         //more functions ;in the start up, that will be shown with a + behind the version
         boolean upgrade = true;
@@ -228,11 +228,6 @@
             return sum/real_values;
 
         }
-
-        void scan_front(int data[])
-        {
-            //not need until now
-        }
     //buttons
         bool wait_for_button(int button)
         {
@@ -387,6 +382,7 @@
         {
             //turn on first led
             r_led(1);
+            #ifdef Servo
             //set servo to neutral position
             pinMode(servo,OUTPUT);
             for(int i=0; i<20;i++)  //generate PWM 50 Hz
@@ -398,6 +394,7 @@
                 delay(17);
 
             }
+            #endif // Servo
             //turn on second led
             y_led(1);
             //set pin usage
